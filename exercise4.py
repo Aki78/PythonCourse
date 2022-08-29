@@ -42,32 +42,41 @@
 #    else:
 #        print("correct")
 #        break
+#
+## 5
+#import hashlib
+#from getpass import getpass
+#
+#l = 5
+## user_name = "python"
+## pass_word = "rules"
+#while l > -1:
+#    h = hashlib.new('sha256')
+#    h.update("pythonrules".encode())
+#    print(h.hexdigest())
+#
+#    my_hash = "fd7a4c43ad7c20dbea0dc6dacc12ef6c36c2c382a0111c92f24244690eba65a2"
+#    u = input("user name: ")
+#    p = getpass("password (chars will not show): ")
+#
+#    h = hashlib.new('sha256')
+#    h.update((u + p).encode())
+#
+#    if (my_hash == h.hexdigest()):
+#        print("access approved, welcome!")
+#        break
+#    else:
+#        print("access denied", l, "times left")
+#        if (l == 0):
+#            print("ACCOUNT TERMINATED, please contact the IT department to renew your account. (Phone number: (+1) 045-555-6390.")
+#    l -= 1
 
-# 5
-import hashlib
-from getpass import getpass
+# 6
 
-l = 5
-# user_name = "python"
-# pass_word = "rules"
-while l > -1:
-    h = hashlib.new('sha256')
-    h.update("pythonrules".encode())
-    print(h.hexdigest())
+# a python loop is far too slow for this task, so I used numpy instead
 
-    my_hash = "fd7a4c43ad7c20dbea0dc6dacc12ef6c36c2c382a0111c92f24244690eba65a2"
-    u = input("user name: ")
-    p = getpass("password (chars will not show): ")
+import numpy as np
 
-    h = hashlib.new('sha256')
-    h.update((u + p).encode())
-
-    if (my_hash == h.hexdigest()):
-        print("access approved")
-        break
-    else:
-        print("access denied", l, "times left")
-        if (l == 0):
-            print("ACCOUNT TERMINATED, please contact the IT department to renew your account. (Phone number: (+1) 045-555-6390.")
-    l -= 1
-
+n = int(input("type in a large integer (less than 100000000): "))
+ps = np.random.uniform(-1,1, size = (n, 2))
+print("Estimated pi value is: ", len(np.argwhere(np.linalg.norm(ps, axis=1) < 1))/n*4)
