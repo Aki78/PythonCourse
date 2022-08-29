@@ -42,3 +42,6 @@ elif ( g== "m"):
 
 else:
     print("not a gender")
+
+
+g = input("input iy")
