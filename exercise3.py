@@ -39,9 +39,16 @@ elif ( g== "m"):
         print("hemoglobin level too heigh.")
     else:
         print("hemoglobin level normal.")
-
 else:
     print("not a gender")
 
-
-g = input("input iy")
+def is_leap_year():
+    y = input("input year" )
+    if y % 4 != 0:
+        return ("Not Leap year")
+    if y % 4 == 400:
+        return ("Leap year")
+    if y % 100:
+        return("Not Leap year")
+    return ("Leap Year")
+is_leay_year()
