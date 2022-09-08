@@ -6,7 +6,6 @@ accum = 0
 
 for i in range(n):
     accum += random.randint(1,6)
-
 print("the sum is: ", accum)
 
 # section 2
