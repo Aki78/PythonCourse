@@ -1,4 +1,5 @@
 import mysql.connector
+from geopy import distance
 from colorama import Fore
 
 connection = mysql.connector.connect(
@@ -31,7 +32,6 @@ def add_airport(icao, airport_name):
     cursor = connection.cursor()
     cursor.execute(sql)
 
-
 def check_if_it_exists(icao):
     sql = ' SELECT COUNT(1) FROM airport '
     sql += 'WHERE ident = "' + icao + '" '
@@ -51,7 +51,7 @@ def find_airport_and_location_by_icao(icao):
     result = cursor.fetchall()
     if cursor.rowcount > 0:
         for row in result:
-            print("Airport name is: " , Fore.BLUE, row[0] , Fore.RESET "location:",Fore.BLUE, row[1], row[2], Fore.RESET)
+            print("Airport name is: " , Fore.BLUE, row[0] , Fore.RESET, "location:",Fore.BLUE, row[1], row[2], Fore.RESET)
 
 def find_airports_by_area_code(iso_country):
     sql = 'SELECT latitude_deg, longitude_deg, type from airport'
@@ -66,19 +66,19 @@ def find_airports_by_area_code(iso_country):
         for row in result:
             print("location:", Fore.BLUE, row[0] , row[1], Fore.RESET,  "type:", Fore.RED, row[2], Fore.RESET)
 
-while 1:
-    choose = input("would you like to A: add, F:find or Q:Quit ")
-    if choose == 'A' or  choose == 'a':
-        icao = input("Type new icao code: ")
-        name = input("Type new airport name: ")
-        does_exist = check_if_it_exists(icao)
-        if does_exist < 1:
-            add_airport(icao, name)
-        else:
-            print( Fore.RED,  "Airport already exists...", Fore.RESET)
+def find_airport_distances(icao1, icao2):
+    sql = 'SELECT latitude_deg, longitude_deg from airport'
+    sql += ' WHERE ident = "' + icao1 + '" or ident = "' + icao2 + '"'
 
-    elif choose == 'F' or  choose == 'f':
-        choose = input("Type icao code: ")
-        find_airport_by_icao(choose)
-    else:
-        break
+    print(sql)
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    print(result)
+    print(distance.distance(result[0] , result[1]).km, "km")
+
+while 1:
+    icao1, icao2 = input("Type in 2 icao's with a space inbtween: ").split()
+    print(icao1, icao2)
+    find_airport_distances(icao1, icao2)
+
