@@ -1,3 +1,28 @@
+#
+## 1
+#seasons = ("winter","sprint", "summer", "autumn")
+#n = int(input("enter the month as number: "))
+#years_defined = [12,1,2,3,4,5,6,7,8,9,10,11]
+#print( "the season for that month is:", seasons[years_defined.index(n)//3])
+#
+#
+## 2
+#name_set = set()
+#while 1:
+#    n = input("enter your name ")
+#
+#    if n in name_set:
+#        print("Existing name")
+#    else:
+#        name_set.add(n)
+#
+#    if n == "":
+#        break
+#print(name_set)
+
+
+# 3
+
 import mysql.connector
 from colorama import Fore
 
@@ -42,8 +67,8 @@ def check_if_it_exists(icao):
     result = cursor.fetchall()
     return(result[0][0])
 
-def find_airport_and_location_by_icao(icao):
-    sql = 'SELECT name, latitude_deg, longitude_deg  from airport'
+def find_airport_by_icao(icao):
+    sql = 'SELECT name from airport'
     sql += ' WHERE ident = "' + icao + '"'
     print(sql)
     cursor = connection.cursor()
@@ -51,20 +76,7 @@ def find_airport_and_location_by_icao(icao):
     result = cursor.fetchall()
     if cursor.rowcount > 0:
         for row in result:
-            print("Airport name is: " , Fore.BLUE, row[0] , Fore.RESET "location:",Fore.BLUE, row[1], row[2], Fore.RESET)
-
-def find_airports_by_area_code(iso_country):
-    sql = 'SELECT latitude_deg, longitude_deg, type from airport'
-    sql += ' WHERE iso_country = "' + iso_country + '"'
-    sql += ' order by type  desc'
-
-    print(sql)
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    if cursor.rowcount > 0:
-        for row in result:
-            print("location:", Fore.BLUE, row[0] , row[1], Fore.RESET,  "type:", Fore.RED, row[2], Fore.RESET)
+            print("Airport name is: " , Fore.BLUE, row[0] , Fore.RESET)
 
 while 1:
     choose = input("would you like to A: add, F:find or Q:Quit ")
