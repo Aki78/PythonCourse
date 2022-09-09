@@ -77,8 +77,10 @@ def find_airport_distances(icao1, icao2):
     print(result)
     print(distance.distance(result[0] , result[1]).km, "km")
 
-while 1:
-    icao1, icao2 = input("Type in 2 icao's with a space inbtween: ").split()
-    print(icao1, icao2)
-    find_airport_distances(icao1, icao2)
+find_airports_by_area_code("FI")
+find_airport_and_location_by_icao("00AA")
+# while 1:
+    # icao1, icao2 = input("Type in 2 icao's with a space inbtween: ").split()
+    # print(icao1, icao2)
+    # find_airport_distances(icao1, icao2)
 
