@@ -33,10 +33,10 @@ connection = mysql.connector.connect(
          user='root',
          password='root',
          autocommit=True
-         )
+     )
 
-def get_employees_byLast_name():
-    sql = "SELECT name from airport"
+def get_airport_names():
+    sql = "SELECT name from airport order by name desc"
     # sql += " WHERE Last_name='" + last_name + "'"
     print(sql)
     cursor = connection.cursor()
@@ -45,12 +45,27 @@ def get_employees_byLast_name():
     if cursor.rowcount > 0:
         for row in result:
             print(row)
-    return
 
-print(get_employees_byLast_name())
+print(get_airport_names())
 
-def add_airport(x):
-    print(x)
+def add_airport(icao, airport_name):
+    sql = 'insert into airport (ident, name, iso_country)'
+    sql += ' values ("' + icao + '","' + airport_name + '","AD")'
+    print(sql)
+    print("Added")
+    cursor = connection.cursor()
+    cursor.execute(sql)
+
+
+def check_if_it_exists(icao):
+    sql = ' SELECT COUNT(1) FROM airport '
+    sql += 'WHERE ident = "' + icao + '" '
+    print(sql)
+    print("Checking...")
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return(result[0][0])
 
 def find_airport_by_icao(icao):
     sql = 'SELECT name from airport'
@@ -61,17 +76,21 @@ def find_airport_by_icao(icao):
     result = cursor.fetchall()
     if cursor.rowcount > 0:
         for row in result:
-            print("Airport name is: " , Fore.RED, row[0] , Fore.RESET)
-    return
+            print("Airport name is: " , Fore.BLUE, row[0] , Fore.RESET)
 
 while 1:
     choose = input("would you like to A: add, F:find or Q:Quit ")
     if choose == 'A' or  choose == 'a':
-        add_airport()
+        icao = input("Type new icao code: ")
+        name = input("Type new airport name: ")
+        does_exist = check_if_it_exists(icao)
+        if does_exist < 1:
+            add_airport(icao, name)
+        else:
+            print( Fore.RED,  "Airport already exists...", Fore.RESET)
+
     elif choose == 'F' or  choose == 'f':
         choose = input("Type icao code: ")
         find_airport_by_icao(choose)
     else:
         break
-
-
