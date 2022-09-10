@@ -14,7 +14,8 @@ class Car:
     elif speed < 0:
         self.current_speed = 0
     else:
-      print("Too fast")
+        pass
+      # print("Too fast")
   def run(self, h):
       self.distance += self.current_speed*h
 
@@ -37,8 +38,6 @@ c1.distance = 2000
 c1.run(1.5)
 
 print(c1.distance)
-
-
 
 # 4
 
@@ -66,8 +65,47 @@ while 1:
         break
     update_speed(car_list)
 
-    print(h)
+    # print(h)
     h += 1
 
 print_properties(car_list)
     
+
+
+# EXERSICE 10 Section 4
+
+class Race:
+    def __init__(self, race_name, race_km, car_list):
+      self.race_name = race_name
+      self.race_km = race_km
+      self.car_list = car_list
+    def hour_passes(self):
+        update_speed(self.car_list)
+        for _i in self.car_list:
+            _i.run(1)
+
+    def race_finished(self):
+        for _i in self.car_list:
+            if _i.distance < self.race_km:
+                return False
+        return True
+
+    def __repr__(self):
+        text = "speed (km/h) |  distance (km)\n"
+        for _i in self.car_list:
+            text += str(_i.current_speed) + "km/h | " + str(_i.distance) + "km\n"
+        return text
+
+r = Race("Grand Demolition Derby",10000,car_list)
+print("Starting race")
+for i in range(10000000):
+    print(i)
+    if  r.race_finished():
+        break
+    r.hour_passes()
+
+    if i%10 == 0:
+        print(r)
+
+
+
