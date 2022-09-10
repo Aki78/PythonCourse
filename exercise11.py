@@ -28,3 +28,5 @@ m = Magazine("Donald Duck", "Aki Hyppa")
 
 b.print_information()
 m.print_information()
+
+# 2 -----> Go To Exercise 9

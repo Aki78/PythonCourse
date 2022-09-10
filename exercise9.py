@@ -98,7 +98,7 @@ class Race:
 
 r = Race("Grand Demolition Derby",10000,car_list)
 print("Starting race")
-for i in range(10000000):
+for i in range(100000):
     print(i)
     if  r.race_finished():
         break
@@ -106,6 +106,37 @@ for i in range(10000000):
 
     if i%10 == 0:
         print(r)
+
+
+# EXERSICE 11 Section 2
+class ElectricCar(Car):
+  def __init__(self, registration, max_speed, capacity):
+    self.capacity = capacity
+    super().__init__(registration, max_speed)
+
+  def print_info(self):
+      print(self.registration, "", self.current_speed, "", self.capacity, "kwh",self.distance, "km")
+
+class StinkyCar(Car):
+  def __init__(self, registration, max_speed, tank):
+    self.tank = tank
+    super().__init__(registration, max_speed)
+
+  def print_info(self):
+      print(self.registration, "", self.current_speed, "", self.tank, "liters", self.distance, "km")
+
+e = ElectricCar("ABC-15", 180, 52.5)
+s = StinkyCar("ABC-15", 165, 32.3)
+
+e.current_speed = 150
+s.current_speed = 120
+
+for i in range(10):
+    e.run(1)
+    s.run(1)
+
+e.print_info()
+s.print_info()
 
 
 
